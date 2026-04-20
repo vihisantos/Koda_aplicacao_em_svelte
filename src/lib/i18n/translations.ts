@@ -102,6 +102,14 @@ export interface Translations {
 		last30days: string;
 		last3months: string;
 	};
+	alerts: {
+		title: string;
+		noAlerts: string;
+		rankUp: string;
+		rankDown: string;
+		viewAll: string;
+		markAllRead: string;
+	};
 }
 
 export const translations: Record<Locale, Translations> = {
@@ -114,7 +122,8 @@ export const translations: Record<Locale, Translations> = {
 		settings: { title: 'Configurações', subtitle: 'Gerencie as preferências do dashboard', appearance: 'Aparência', darkMode: 'Modo Escuro', language: 'Idioma e Região', notifications: 'Notificações', alertNotifications: 'Notificações de alertas', alertNotificationsDesc: 'Receba alertas sobre mudanças nas métricas', data: 'Dados', refreshData: 'Atualizar Dados', lastUpdate: 'Última atualização', now: 'agora mesmo' },
 		common: { save: 'Salvar', cancel: 'Cancelar', confirm: 'Confirmar', delete: 'Excluir', edit: 'Editar', add: 'Adicionar', search: 'Buscar', filter: 'Filtrar', export: 'Exportar', loading: 'Carregando...', noData: 'Sem dados' },
 		toast: { dataUpdated: 'Dados atualizados com sucesso!', exportSuccess: 'registros exportados', realtimeEnabled: 'Modo tempo real ativado', realtimeDisabled: 'Modo tempo real desativado' },
-		period: { last7days: 'Últimos 7 dias', last30days: 'Últimos 30 dias', last3months: 'Últimos 3 meses' },
+		period: { last7days: 'Últimos 7 dias', last30days: 'Últimos 30 dias', last3months: 'Últimos 3 månses' },
+		alerts: { title: 'Alertas', noAlerts: 'Nenhuma alert', rankUp: 'Subiu', rankDown: 'Caiu', viewAll: 'Ver todos', markAllRead: 'Marcar todos como lido' },
 	},
 	'en-US': {
 		nav: { overview: 'Overview', keywords: 'Keywords', backlinks: 'Backlinks', trends: 'Trends', settings: 'Settings', version: 'v0.0.1', online: 'Online' },
@@ -126,6 +135,7 @@ export const translations: Record<Locale, Translations> = {
 		common: { save: 'Save', cancel: 'Cancel', confirm: 'Confirm', delete: 'Delete', edit: 'Edit', add: 'Add', search: 'Search', filter: 'Filter', export: 'Export', loading: 'Loading...', noData: 'No data' },
 		toast: { dataUpdated: 'Data updated successfully!', exportSuccess: 'records exported', realtimeEnabled: 'Real-time mode enabled', realtimeDisabled: 'Real-time mode disabled' },
 		period: { last7days: 'Last 7 days', last30days: 'Last 30 days', last3months: 'Last 3 months' },
+		alerts: { title: 'Alerts', noAlerts: 'No alerts', rankUp: 'Moved up', rankDown: 'Moved down', viewAll: 'View all', markAllRead: 'Mark all as read' },
 	},
 	'es': {
 		nav: { overview: 'Overview', keywords: 'Keywords', backlinks: 'Backlinks', trends: 'Tendencias', settings: 'Ajustes', version: 'v0.0.1', online: 'En línea' },
@@ -137,5 +147,6 @@ export const translations: Record<Locale, Translations> = {
 		common: { save: 'Guardar', cancel: 'Cancelar', confirm: 'Confirmar', delete: 'Eliminar', edit: 'Editar', add: 'Añadir', search: 'Buscar', filter: 'Filtrar', export: 'Exportar', loading: 'Cargando...', noData: 'Sin datos' },
 		toast: { dataUpdated: '¡Datos actualizados con éxito!', exportSuccess: 'registros exportados', realtimeEnabled: 'Modo tiempo real activado', realtimeDisabled: 'Modo tiempo real desactivado' },
 		period: { last7days: 'Últimos 7 días', last30days: 'Últimos 30 días', last3months: 'Últimos 3 meses' },
+		alerts: { title: 'Alertas', noAlerts: 'Sin alertas', rankUp: 'Subió', rankDown: 'Bajó', viewAll: 'Ver todas', markAllRead: 'Marcar todas como leídas' },
 	},
 };

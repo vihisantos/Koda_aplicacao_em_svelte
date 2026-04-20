@@ -1,0 +1,20 @@
+{
+  "name": "Koda - SEO Dashboard",
+  "short_name": "Koda",
+  "description": "Dashboard administrativo para análise de métricas de SEO e tráfego orgânico",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#0ea5e9",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity"],
+  "lang": "pt-BR"
+}

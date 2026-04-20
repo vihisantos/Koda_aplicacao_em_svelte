@@ -14,7 +14,6 @@ const config = {
 			precompress: false,
 		}),
 		paths: {
-			// Replace with your GitHub repo name: /Koda_aplicacao_em_svelte
 			base: process.env.NODE_ENV === 'production' ? '/Koda_aplicacao_em_svelte' : ''
 		}
 	}
