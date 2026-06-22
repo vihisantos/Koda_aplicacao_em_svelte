@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '../app.css';
-	import favicon from '$lib/assets/favicon.svg';
+	import favicon from '$lib/assets/logo.png';
 	import { themeStore } from '$lib/stores/theme.svelte';
 	import Toast from '$lib/components/Toast.svelte';
 	import SEO from '$lib/components/SEO.svelte';

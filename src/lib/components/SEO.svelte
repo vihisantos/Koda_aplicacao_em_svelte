@@ -13,7 +13,7 @@
 	const t = getTranslations();
 	const defaultTitle = 'Koda - SEO Dashboard';
 	const defaultDesc = 'Dashboard administrativo para análise de métricas de SEO e tráfego orgânico';
-	const defaultImage = '/favicon.svg';
+	const defaultImage = '/logo.png';
 	const siteUrl = 'https://capybaraholding.com.br';
 
 	const fullTitle = title ? `${title} | ${defaultTitle}` : defaultTitle;
