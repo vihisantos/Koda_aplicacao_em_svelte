@@ -7,6 +7,12 @@
 </p>
 
 <p align="center">
+  <a href="https://vihisantos.github.io/Koda_aplicacao_em_svelte">
+    <img src="https://img.shields.io/badge/Ver_Projeto-online-0ea5e9?style=for-the-badge&logo=github&logoColor=white" alt="Ver Projeto">
+  </a>
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/badge/Svelte%205-FF3E00?style=for-the-badge&logo=svelte&logoColor=white" alt="Svelte 5">
   <img src="https://img.shields.io/badge/SvelteKit-FF3E00?style=for-the-badge&logo=svelte&logoColor=white" alt="SvelteKit">
   <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript">
