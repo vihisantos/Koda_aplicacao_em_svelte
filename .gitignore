@@ -1,28 +1,46 @@
-node_modules
+# Dependencies
+node_modules/
 
-# Output
-.output
-.vercel
-.netlify
-.wrangler
-/.svelte-kit
-/build
+# SvelteKit
+.svelte-kit/
+build/
+output/
 
-# OS
-.DS_Store
-Thumbs.db
-
-# Env
+# Environment
 .env
 .env.*
 !.env.example
 !.env.test
 
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
-#confidencial
+# Cache
+.cache/
+.parcel-cache/
 
+# Misc
+.vercel/
+.netlify/
+.wrangler/
+*.tsbuildinfo
+
+# Confidential
 create.md
 plan.md
