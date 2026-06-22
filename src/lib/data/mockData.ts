@@ -40,6 +40,15 @@ export interface OverviewStats {
 	positionChange: number;
 }
 
+export interface Backlink {
+	domain: string;
+	pages: number;
+	authority: number;
+	status: 'active' | 'broken';
+	anchorText: string;
+	firstSeen: string;
+}
+
 function generateDailyMetrics(days: number): DailyMetric[] {
 	const metrics: DailyMetric[] = [];
 	const now = new Date();
@@ -149,6 +158,29 @@ function generatePageUrls(count: number): PageUrl[] {
 	return urls.sort((a, b) => b.clicks - a.clicks);
 }
 
+function generateBacklinks(count: number): Backlink[] {
+	const backlinks: Backlink[] = [];
+	const anchorTexts = ['SEO tools', 'marketing guide', 'best practices', 'tutorial', 'resources', 'comparison', 'review', 'definitive guide', 'how to', 'examples'];
+	const baseDomains = ['blog.example.com', 'news.site.org', 'wiki.tech.io', 'partner.biz', 'reference.net', 'techblog.com', 'marketingpro.io', 'devcommunity.org', 'startup-hub.com', 'digitalinsights.co'];
+
+	for (let i = 0; i < count; i++) {
+		const domain = i < baseDomains.length
+			? baseDomains[i]
+			: `${faker.internet.domainName()}`;
+
+		backlinks.push({
+			domain,
+			pages: faker.number.int({ min: 1, max: 30 }),
+			authority: faker.number.int({ min: 10, max: 95 }),
+			status: faker.helpers.arrayElement(['active', 'active', 'active', 'broken']),
+			anchorText: faker.helpers.arrayElement(anchorTexts),
+			firstSeen: faker.date.past({ years: 2 }).toISOString().split('T')[0],
+		});
+	}
+
+	return backlinks.sort((a, b) => b.authority - a.authority);
+}
+
 function calculateOverviewStats(metrics: DailyMetric[]): OverviewStats {
 	const totalClicks = metrics.reduce((sum, m) => sum + m.clicks, 0);
 	const totalImpressions = metrics.reduce((sum, m) => sum + m.impressions, 0);
@@ -184,6 +216,7 @@ export function generateData(period: TimePeriod) {
 	const dailyMetrics = generateDailyMetrics(days);
 	const keywords = generateKeywords(20);
 	const pageUrls = generatePageUrls(15);
+	const backlinks = generateBacklinks(25);
 	const overviewStats = calculateOverviewStats(dailyMetrics);
 
 	return {
@@ -191,6 +224,7 @@ export function generateData(period: TimePeriod) {
 		dailyMetrics,
 		keywords,
 		pageUrls,
+		backlinks,
 		overviewStats,
 	};
 }

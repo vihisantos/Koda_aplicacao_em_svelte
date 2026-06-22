@@ -6,6 +6,7 @@
 	import { setLocale, getLocale, getTranslations } from '$lib/i18n';
 	import Toggle from '$lib/components/Toggle.svelte';
 	import { Settings, Moon, Sun, Globe, Bell, Database, RefreshCw } from 'lucide-svelte';
+	import { sidebarStore } from '$lib/stores/sidebar.svelte';
 
 	const t = getTranslations();
 	let notifications = $state(true);
@@ -24,7 +25,7 @@
 <div class="min-h-screen bg-slate-50 dark:bg-slate-950">
 	<Sidebar />
 
-	<main class="ml-64 p-8">
+	<main id="main-content" class="p-4 md:p-8 transition-all duration-300 {sidebarStore.mainPaddingClass}">
 		<header class="mb-8">
 			<h1 class="text-2xl font-bold text-slate-900 dark:text-white">{t.settings.title}</h1>
 			<p class="text-sm text-slate-500 dark:text-slate-400">{t.settings.subtitle}</p>

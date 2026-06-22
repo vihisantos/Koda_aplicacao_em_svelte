@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { TrendingUp, TrendingDown, Minus } from 'lucide-svelte';
+	import { getTranslations } from '$lib/i18n';
 
 	let {
 		title,
@@ -7,25 +8,62 @@
 		change,
 		format = 'number',
 		color = 'sky',
+		sparklineData = [],
 	}: {
 		title: string;
 		value: number;
 		change: number;
 		format?: 'number' | 'percent' | 'position';
 		color?: 'sky' | 'emerald' | 'violet' | 'amber';
+		sparklineData?: number[];
 	} = $props();
 
+	const t = getTranslations();
 	const isPositive = $derived(change > 0);
 	const isNegative = $derived(change < 0);
 
 	const colorMap = {
-		sky: { bg: 'from-sky-500/10 to-sky-500/5', text: 'text-sky-600 dark:text-sky-400', accent: 'sky' },
-		emerald: { bg: 'from-emerald-500/10 to-emerald-500/5', text: 'text-emerald-600 dark:text-emerald-400', accent: 'emerald' },
-		violet: { bg: 'from-violet-500/10 to-violet-500/5', text: 'text-violet-600 dark:text-violet-400', accent: 'violet' },
-		amber: { bg: 'from-amber-500/10 to-amber-500/5', text: 'text-amber-600 dark:text-amber-400', accent: 'amber' },
+		sky: { bg: 'from-sky-500/10 to-sky-500/5', text: 'text-sky-600 dark:text-sky-400', stroke: '#0ea5e9', accent: 'sky' },
+		emerald: { bg: 'from-emerald-500/10 to-emerald-500/5', text: 'text-emerald-600 dark:text-emerald-400', stroke: '#10b981', accent: 'emerald' },
+		violet: { bg: 'from-violet-500/10 to-violet-500/5', text: 'text-violet-600 dark:text-violet-400', stroke: '#8b5cf6', accent: 'violet' },
+		amber: { bg: 'from-amber-500/10 to-amber-500/5', text: 'text-amber-600 dark:text-amber-400', stroke: '#f59e0b', accent: 'amber' },
 	};
 
 	const colors = $derived(colorMap[color]);
+
+	const sparklinePoints = $derived.by(() => {
+		if (sparklineData.length < 2) return '';
+		const max = Math.max(...sparklineData);
+		const min = Math.min(...sparklineData);
+		const range = max - min || 1;
+		const width = 120;
+		const height = 32;
+		const stepX = width / (sparklineData.length - 1);
+
+		return sparklineData.map((v, i) => {
+			const x = i * stepX;
+			const y = height - 2 - ((v - min) / range) * (height - 4);
+			return `${x},${y}`;
+		}).join(' ');
+	});
+
+	const sparklineArea = $derived.by(() => {
+		if (sparklineData.length < 2) return '';
+		const max = Math.max(...sparklineData);
+		const min = Math.min(...sparklineData);
+		const range = max - min || 1;
+		const width = 120;
+		const height = 32;
+		const stepX = width / (sparklineData.length - 1);
+
+		const points = sparklineData.map((v, i) => {
+			const x = i * stepX;
+			const y = height - 2 - ((v - min) / range) * (height - 4);
+			return `${x},${y}`;
+		});
+
+		return `0,${height} ${points.join(' ')} ${width},${height}`;
+	});
 
 	function formatValue(val: number, fmt: string): string {
 		switch (fmt) {
@@ -65,7 +103,27 @@
 					0%
 				</span>
 			{/if}
-			<span class="text-xs text-slate-400 dark:text-slate-500">vs período anterior</span>
+			<span class="text-xs text-slate-400 dark:text-slate-500">{t.overview.vsPrevious}</span>
 		</div>
+
+		{#if sparklinePoints}
+			<div class="mt-4 h-8">
+				<svg viewBox="0 0 120 32" class="w-full h-full" preserveAspectRatio="none">
+					<polygon
+						fill="{colors.stroke}"
+						fill-opacity="0.1"
+						points={sparklineArea}
+					/>
+					<polyline
+						fill="none"
+						stroke="{colors.stroke}"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						points={sparklinePoints}
+					/>
+				</svg>
+			</div>
+		{/if}
 	</div>
 </div>

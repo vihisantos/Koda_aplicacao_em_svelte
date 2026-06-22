@@ -7,6 +7,7 @@
 	import { exportKeywords } from '$lib/utils/export';
 	import { toastStore } from '$lib/stores/toast.svelte';
 	import { getTranslations } from '$lib/i18n';
+	import { sidebarStore } from '$lib/stores/sidebar.svelte';
 
 	const t = getTranslations();
 
@@ -88,7 +89,7 @@
 <div class="min-h-screen bg-slate-50 dark:bg-slate-950">
 	<Sidebar />
 
-	<main class="ml-64 p-8">
+	<main id="main-content" class="p-4 md:p-8 transition-all duration-300 {sidebarStore.mainPaddingClass}">
 		<header class="flex items-center justify-between mb-8">
 			<div>
 				<h1 class="text-2xl font-bold text-slate-900 dark:text-white">Keywords</h1>

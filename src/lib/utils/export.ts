@@ -1,4 +1,5 @@
 import type { Keyword, DailyMetric, PageUrl } from '$lib/data/mockData';
+import type { RankingAlert } from '$lib/stores/alerts.svelte';
 import { toastStore } from '$lib/stores/toast.svelte';
 import { getTranslations } from '$lib/i18n';
 import { jsPDF } from 'jspdf';
@@ -127,5 +128,20 @@ export function exportMetricsPDF(metrics: DailyMetric[]) {
 			{ header: t.overview.impressions, dataKey: 'impressions' },
 			{ header: t.overview.avgCtr, dataKey: 'ctr' },
 		]
+	);
+}
+
+export function exportAlerts(alerts: RankingAlert[]) {
+	const t = getTranslations();
+	exportToCSV(
+		alerts.map(a => ({
+			[t.alerts.keyword]: a.keyword,
+			[t.alerts.previousPosition]: a.previousPosition,
+			[t.alerts.currentPosition]: a.currentPosition,
+			[t.alerts.change]: a.change,
+			[t.alerts.date]: a.date.toISOString(),
+			[t.alerts.viewed]: a.viewed ? 'Yes' : 'No',
+		})),
+		'alerts'
 	);
 }

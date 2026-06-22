@@ -6,6 +6,7 @@
 	import { TrendingUp } from 'lucide-svelte';
 	import { Chart, registerables } from 'chart.js';
 	import { getTranslations, getLocale } from '$lib/i18n';
+	import { sidebarStore } from '$lib/stores/sidebar.svelte';
 
 	Chart.register(...registerables);
 
@@ -96,7 +97,7 @@
 <div class="min-h-screen bg-slate-50 dark:bg-slate-950">
 	<Sidebar />
 
-	<main class="ml-64 p-8">
+	<main id="main-content" class="p-4 md:p-8 transition-all duration-300 {sidebarStore.mainPaddingClass}">
 		<header class="flex items-center justify-between mb-8">
 			<div>
 				<h1 class="text-2xl font-bold text-slate-900 dark:text-white">{t.trends.title}</h1>

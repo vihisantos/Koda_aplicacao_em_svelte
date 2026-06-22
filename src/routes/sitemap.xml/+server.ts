@@ -5,6 +5,7 @@ const routes = [
   { loc: '/keywords', changefreq: 'daily', priority: 0.8 },
   { loc: '/backlinks', changefreq: 'daily', priority: 0.8 },
   { loc: '/trends', changefreq: 'daily', priority: 0.8 },
+  { loc: '/alerts', changefreq: 'daily', priority: 0.7 },
   { loc: '/settings', changefreq: 'monthly', priority: 0.5 },
 ];
 

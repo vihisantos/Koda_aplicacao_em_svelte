@@ -4,6 +4,7 @@ const STATIC_ASSETS = [
   '/keywords',
   '/backlinks',
   '/trends',
+  '/alerts',
   '/settings',
   '/manifest.json',
 ];

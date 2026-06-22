@@ -10,6 +10,7 @@
 	import { toastStore } from "$lib/stores/toast.svelte";
 	import { getTranslations, getLocale } from "$lib/i18n";
 	import { Chart, registerables } from "chart.js";
+	import { sidebarStore } from "$lib/stores/sidebar.svelte";
 
 	Chart.register(...registerables);
 
@@ -17,6 +18,11 @@
 	const { overviewStats, dailyMetrics, period, isRealTime } =
 		$derived(dashboardStore);
 	const isLoading = $derived(!overviewStats);
+
+	const clicksSparkline = $derived(dailyMetrics.slice(-7).map(m => m.clicks));
+	const impressionsSparkline = $derived(dailyMetrics.slice(-7).map(m => m.impressions));
+	const ctrSparkline = $derived(dailyMetrics.slice(-7).map(m => m.ctr));
+	const positionSparkline = $derived(dailyMetrics.slice(-7).map(m => m.position));
 
 	// svelte-ignore non_reactive_update
 	let chartCanvas: HTMLCanvasElement;
@@ -134,7 +140,7 @@
 <div class="min-h-screen bg-slate-50 dark:bg-slate-950">
 	<Sidebar />
 
-	<main class="ml-64 p-8">
+	<main id="main-content" class="p-4 md:p-8 transition-all duration-300 {sidebarStore.mainPaddingClass}">
 		<header class="flex items-center justify-between mb-8">
 			<div>
 				<h1 class="text-2xl font-bold text-slate-900 dark:text-white">
@@ -200,12 +206,14 @@
 					value={overviewStats.totalClicks}
 					change={overviewStats.clicksChange}
 					color="sky"
+					sparklineData={clicksSparkline}
 				/>
 				<StatCard
 					title={t.overview.impressions}
 					value={overviewStats.totalImpressions}
 					change={overviewStats.impressionsChange}
 					color="violet"
+					sparklineData={impressionsSparkline}
 				/>
 				<StatCard
 					title={t.overview.avgCtr}
@@ -213,6 +221,7 @@
 					change={overviewStats.ctrChange}
 					format="percent"
 					color="emerald"
+					sparklineData={ctrSparkline}
 				/>
 				<StatCard
 					title={t.overview.avgPosition}
@@ -220,6 +229,7 @@
 					change={overviewStats.positionChange}
 					format="position"
 					color="amber"
+					sparklineData={positionSparkline}
 				/>
 			</div>
 

@@ -1,4 +1,5 @@
-import { generateData, type TimePeriod, type OverviewStats, type DailyMetric, type Keyword, type PageUrl } from '$lib/data/mockData';
+import { generateData, type TimePeriod, type OverviewStats, type DailyMetric, type Keyword, type PageUrl, type Backlink } from '$lib/data/mockData';
+import { alertsStore } from './alerts.svelte';
 
 const STORAGE_KEY = 'koda_dashboard_period';
 
@@ -8,8 +9,10 @@ class DashboardStore {
 	dailyMetrics = $state<DailyMetric[]>([]);
 	keywords = $state<Keyword[]>([]);
 	pageUrls = $state<PageUrl[]>([]);
+	backlinks = $state<Backlink[]>([]);
 	isRealTime = $state(false);
 	private interval: ReturnType<typeof setInterval> | null = null;
+	private previousKeywordPositions = new Map<string, number>();
 
 	constructor() {
 		this.loadFromStorage();
@@ -32,11 +35,22 @@ class DashboardStore {
 	}
 
 	regenerate() {
+		for (const kw of this.keywords) {
+			this.previousKeywordPositions.set(kw.keyword, kw.position);
+		}
+
 		const data = generateData(this.period);
 		this.overviewStats = data.overviewStats;
 		this.dailyMetrics = data.dailyMetrics;
 		this.keywords = data.keywords;
 		this.pageUrls = data.pageUrls;
+		this.backlinks = data.backlinks;
+
+		alertsStore.checkForAlerts(
+			this.keywords.map(k => ({ keyword: k.keyword, position: k.position })),
+			this.previousKeywordPositions
+		);
+
 		this.saveToStorage();
 	}
 

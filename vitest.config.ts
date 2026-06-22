@@ -1,13 +1,19 @@
-import { defineConfig } from 'vitest/config';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
-import { sveltekit } from '@sveltejs/kit/vite';
+import { defineConfig } from 'vitest/config';
 import path from 'path';
 
 export default defineConfig({
-	plugins: [svelte(), sveltekit()],
+	plugins: [
+		svelte({
+			compilerOptions: {
+				runes: ({ filename }: { filename: string }) =>
+					filename.split(/[/\\]/).includes('node_modules') ? undefined : true,
+			},
+		}),
+	],
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}'],
-		environment: 'node',
+		environment: 'jsdom',
 		globals: true,
 		setupFiles: ['./src/test/setup.ts'],
 		coverage: {
@@ -20,6 +26,9 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			$lib: path.resolve(__dirname, './src/lib'),
+			'$app/stores': path.resolve(__dirname, './src/test/mocks/app-stores.ts'),
+			'$app/navigation': path.resolve(__dirname, './src/test/mocks/app-navigation.ts'),
 		},
+		conditions: ['browser', 'import', 'module'],
 	},
 });
